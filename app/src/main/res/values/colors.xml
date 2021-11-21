@@ -11,4 +11,10 @@
     <color name="lightgrey">#EDEDED</color>
     <color name="white">#fff</color>
 
+    <color name="orange">#F27121</color>
+    <color name="red">#E94057</color>
+    <color name="purple">#8A2387</color>
+
+    <color name="skyblue">#78ffd6</color>
+
 </resources>

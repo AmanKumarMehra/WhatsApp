@@ -2,4 +2,6 @@
     <string name="app_name">WhatsApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="enter_otp_here">enter_otp_here</string>
+    <string name="verify_and_signin">verify_and_signin</string>
 </resources>
