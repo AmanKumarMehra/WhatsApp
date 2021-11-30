@@ -44,7 +44,7 @@ public class SignupFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent i = new Intent(getActivity().getBaseContext(), OTP.class);
-                i.putExtra("mobile", phone.getText().toString());
+                i.putExtra("mobile", "+91" + phone.getText().toString());
                 getActivity().startActivity(i);
             }
         });
