@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,8 +27,8 @@ public class OTP extends AppCompatActivity {
     Button b2;
     String phonenumber;
     String otpid;
-    FirebaseAuth mAuth;
-
+    private FirebaseAuth mAuth;
+    String e_mail, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class OTP extends AppCompatActivity {
         setContentView(R.layout.activity_otp);
 
         phonenumber=getIntent().getStringExtra("mobile");
+        e_mail = getIntent().getStringExtra("email");
+        password = getIntent().getStringExtra("password");
 
 
         t2=(EditText)findViewById(R.id.t2);
@@ -98,6 +101,20 @@ public class OTP extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful())
                         {
+
+                            mAuth.createUserWithEmailAndPassword(e_mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(OTP.this, "Email Registered", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                    else {
+                                        Toast.makeText(OTP.this, "Error!"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
                             startActivity(new Intent(OTP.this,MainActivity.class));
                             finish();
 
