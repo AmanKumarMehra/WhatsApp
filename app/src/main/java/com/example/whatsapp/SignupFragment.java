@@ -23,7 +23,7 @@ import java.util.concurrent.Executor;
 public class SignupFragment extends Fragment {
 
 
-    EditText email, phone, pass, confirm_pass;
+    EditText username, email, phone, pass, confirm_pass;
     Button signUp;
 
     @Override
@@ -31,6 +31,7 @@ public class SignupFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_signup, container, false);
 
+        username = v.findViewById(R.id.username);
         email = v.findViewById(R.id.email);
         phone = v.findViewById(R.id.mobile);
         pass = v.findViewById(R.id.pass);
@@ -43,6 +44,7 @@ public class SignupFragment extends Fragment {
 
                 Intent i = new Intent(getActivity().getBaseContext(), OTP.class);
                 i.putExtra("mobile", "+91" + phone.getText().toString());
+                i.putExtra("user", username.getText().toString());
                 i.putExtra("email", email.getText().toString());
                 i.putExtra("password", pass.getText().toString());
 

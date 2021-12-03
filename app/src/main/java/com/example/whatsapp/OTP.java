@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.whatsapp.Models.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,7 +30,8 @@ public class OTP extends AppCompatActivity {
     String phonenumber;
     String otpid;
     private FirebaseAuth mAuth;
-    String e_mail, password;
+    FirebaseDatabase database;
+    String username, e_mail, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class OTP extends AppCompatActivity {
         setContentView(R.layout.activity_otp);
 
         phonenumber=getIntent().getStringExtra("mobile");
+
+        username = getIntent().getStringExtra("user");
         e_mail = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
 
@@ -43,6 +48,7 @@ public class OTP extends AppCompatActivity {
         t2=(EditText)findViewById(R.id.t2);
         b2=(Button)findViewById(R.id.b2);
         mAuth=FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
 
         initiateotp();
 
@@ -106,6 +112,11 @@ public class OTP extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful()){
+                                        Users user = new Users(username, e_mail, password);
+
+                                        String id = task.getResult().getUser().getUid();
+                                        database.getReference().child("Users").child(id).setValue(user);
+
                                         Toast.makeText(OTP.this, "Email Registered", Toast.LENGTH_SHORT).show();
 
                                     }
