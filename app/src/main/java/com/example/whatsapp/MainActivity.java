@@ -1,11 +1,15 @@
 package com.example.whatsapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TableLayout;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.example.whatsapp.Adapters.FragmentAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,5 +29,26 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chatmenu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int itemId = item.getItemId();
+
+       switch (itemId){
+           case R.id.m1:
+               Intent intent1 = new Intent(MainActivity.this, GroupChatActivity.class);
+               startActivity(intent1);
+               break;
+
+       }
+
+        return super.onOptionsItemSelected(item);
     }
 }

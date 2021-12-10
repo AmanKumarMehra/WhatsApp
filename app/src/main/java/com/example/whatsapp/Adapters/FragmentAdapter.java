@@ -1,6 +1,4 @@
-package com.example.whatsapp;
-
-import android.widget.Switch;
+package com.example.whatsapp.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,19 +6,29 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.whatsapp.Fragments.Calls_Fragment;
+import com.example.whatsapp.Fragments.Chat_Fragment;
+import com.example.whatsapp.Fragments.Status_Fragment;
+
 public class FragmentAdapter extends FragmentPagerAdapter {
+
     public FragmentAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
+
     @NonNull
     @Override
     public Fragment getItem(int position) {
+
         switch(position){
 
             case 0: return new Chat_Fragment();
+
             case 1: return new Status_Fragment();
+
             case 2: return new Calls_Fragment();
+
 
             default : return new Chat_Fragment();
         }

@@ -1,4 +1,4 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.whatsapp.MainActivity;
+import com.example.whatsapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -57,7 +59,7 @@ public class LoginFragment extends Fragment implements OnClickListener {
                     pass.setText("");
                     Toast.makeText(getActivity(), "Successfully LogedIn", Toast.LENGTH_SHORT).show();*/
 
-                    startActivity(new Intent(getActivity(),MainActivity.class));
+                    startActivity(new Intent(getActivity(), MainActivity.class));
                 }
                 else {
                     Toast.makeText(getActivity(), "Error!"+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();

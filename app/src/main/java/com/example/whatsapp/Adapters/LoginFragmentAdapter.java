@@ -1,10 +1,13 @@
-package com.example.whatsapp;
+package com.example.whatsapp.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.whatsapp.Fragments.LoginFragment;
+import com.example.whatsapp.Fragments.SignupFragment;
 
 public class LoginFragmentAdapter extends FragmentPagerAdapter {
 

@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.whatsapp.Adapters.LoginFragmentAdapter;
+import com.example.whatsapp.Fragments.Chat_Fragment;
+import com.example.whatsapp.Fragments.LoginFragment;
 import com.example.whatsapp.Models.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
