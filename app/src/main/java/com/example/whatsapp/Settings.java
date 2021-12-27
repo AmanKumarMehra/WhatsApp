@@ -48,11 +48,11 @@ public class Settings extends AppCompatActivity {
         binding.backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Settings.this, MainActivity.class);
-                startActivity(intent);
+                onBackPressed();
             }
         });
 
+        //updating Username and AboutUs
         binding.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +70,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        //Fetching data like profilePic, Username and Status from Firebase and showing it
         database.getReference().child("Users").child(FirebaseAuth.getInstance().getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -90,6 +91,7 @@ public class Settings extends AppCompatActivity {
                     }
                 });
 
+        // Choose image from Gallary
         binding.add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +103,8 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    @Override
+
+    @Override // uploading image and it's'url on Firebase
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(data.getData() != null){

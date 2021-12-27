@@ -33,7 +33,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         View v =  inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
 
 
-        document = v.findViewById(R.id.document);
+        /*document = v.findViewById(R.id.document);
         camera = v.findViewById(R.id.camera);
         gallery = v.findViewById(R.id.gallery);
 
@@ -73,7 +73,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
 
             }
-        });
+        });*/
 
         return v;
     }
