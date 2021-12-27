@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.whatsapp.Adapters.ChatAdapter;
+import com.example.whatsapp.Fragments.BottomSheetFragment;
 import com.example.whatsapp.Models.MessageModel;
 import com.example.whatsapp.databinding.ActivityChatDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -90,6 +91,14 @@ public class ChatDetailActivity extends AppCompatActivity {
                     }
                 });
 
+
+        binding.attachBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetFragment bottomSheetFragment = new BottomSheetFragment();
+                bottomSheetFragment.show(getSupportFragmentManager(), bottomSheetFragment.getTag());
+            }
+        });
 
         binding.send.setOnClickListener(new View.OnClickListener() {
             @Override

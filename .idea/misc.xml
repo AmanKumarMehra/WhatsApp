@@ -3,19 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/Attach_button_bg.xml" value="0.1895" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/attach_button_bg.xml" value="0.1895" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/bg_btn.xml" value="0.1535" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/bg_receiver.xml" value="0.19" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/bg_sender.xml" value="0.19" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/camera_bg.xml" value="0.1895" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/document_bg.xml" value="0.1895" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/edit_text_bg.xml" value="0.1775" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/edittext_bg.xml" value="0.1975" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/image_bg.xml" value="0.1895" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/linear_bg.xml" value="0.1535" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/message.xml" value="0.1895" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/rounded_top_corner_bg.xml" value="0.1895" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/drawable/send_bg.xml" value="0.1975" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_chat_detail.xml" value="0.264" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_group_chat.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_login.xml" value="0.25025641025641027" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_otp.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_send_image.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/fragment_calls_.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/fragment_chat_.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/fragment_login.xml" value="0.25025641025641027" />
@@ -24,6 +33,7 @@
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/sample_receiver.xml" value="0.2" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/sample_sender.xml" value="0.1" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/sample_show_user.xml" value="0.21875" />
+        <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/layout/send_image.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/menu/callsmenu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/menu/chatmenu.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Aman Kumar/AndroidStudioProjects/WhatsApp/app/src/main/res/menu/statusmenu.xml" value="0.25416666666666665" />

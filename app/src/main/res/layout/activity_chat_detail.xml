@@ -104,37 +104,45 @@
         android:layout_below="@id/toolbar" />
 
 
-
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Message"
             android:layout_marginLeft="5dp"
-            android:textSize="19sp"
+            android:layout_weight="1"
+            android:background="@drawable/message"
+            android:hint="Message"
             android:padding="10dp"
-            android:background="@drawable/edittext_bg"/>
+            android:textSize="19sp" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
+            android:id="@+id/attach_btn"
+            android:layout_width="44dp"
+            android:layout_height="43.7dp"
+            android:background="@drawable/attach_button_bg"
+            android:padding="10dp"
+            android:src="@drawable/attached"
+            android:textSize="19sp" />
+
+        <ImageView
             android:id="@+id/send"
             android:layout_width="47dp"
             android:layout_height="46dp"
-            android:background="@drawable/send_bg"
-            android:padding="4dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/send_bg"
+            android:padding="8dp"
             android:src="@drawable/plane"
-            app:civ_border_width="0dp" />
+            app:civ_border_width="0dp"
+            app:tint="@color/white" />
     </LinearLayout>
 
 
