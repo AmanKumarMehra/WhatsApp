@@ -9,11 +9,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.example.whatsapp.Adapters.ChatAdapter;
 import com.example.whatsapp.Fragments.BottomSheetFragment;
 import com.example.whatsapp.Models.MessageModel;
 import com.example.whatsapp.databinding.ActivityChatDetailBinding;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -46,7 +49,9 @@ public class ChatDetailActivity extends AppCompatActivity {
 
     String url;
     private String checker = "";
-    StorageTask storageTask;
+    UploadTask uploadTask;
+
+    ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,7 @@ public class ChatDetailActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
+        loadingBar  = new ProgressDialog(this);
 
         final String senderId = auth.getUid();
         String recieveId = getIntent().getStringExtra("userId");
@@ -111,32 +117,67 @@ public class ChatDetailActivity extends AppCompatActivity {
                 });
 
 
-        // uploading images
+        // uploading images, pdfs and doc
         ActivityResultLauncher<String> mGetContent = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri uri) {
                         url = uri.toString();
 
+                        // uploading documents
                         if(!checker.equals("image")){
+                            final StorageReference reference = firebaseStorage.getReference().child("Documents")
+                                    .child(senderRoom).child(url.replace("/", ""));
 
-                        }
-                        if(checker.equals("image")){
-                            final StorageReference reference = firebaseStorage.getReference().child("Images")
-                                    .child(senderRoom).child(url);
 
                             reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    StorageReference storageReference = firebaseStorage.getReference().child("Documents")
+                                            .child(receiverRoom).child(url.replace("/", ""));
+
+                                    storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                         @Override
-                                        public void onSuccess(Uri uri) {
-                                            uploadMessages(uri.toString(), senderId, senderRoom, receiverRoom);
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    uploadMessages(uri.toString(), senderId, senderRoom, receiverRoom, checker);
+                                                }
+                                            });
                                         }
                                     });
-
                                 }
                             });
+                        }
+
+
+                        //uploading images
+                        if(checker.equals("image")){
+                            final StorageReference reference = firebaseStorage.getReference().child("Images")
+                                    .child(senderRoom).child(url.replace("/", ""));
+
+
+                            reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    StorageReference storageReference = firebaseStorage.getReference().child("Images")
+                                            .child(receiverRoom).child(url.replace("/", ""));
+
+                                    storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                                @Override
+                                                public void onSuccess(Uri uri) {
+                                                    uploadMessages(uri.toString(), senderId, senderRoom, receiverRoom, checker);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+
                         }
                         else{
                             Toast.makeText(ChatDetailActivity.this, "Nothing Selected", Toast.LENGTH_SHORT).show();
@@ -174,9 +215,11 @@ public class ChatDetailActivity extends AppCompatActivity {
                         }
                         if(i == 1){
                             checker = "pdf";
+                            mGetContent.launch("application/pdf");
                         }
                         if(i == 2){
                             checker = "docx";
+                            mGetContent.launch("application/msword");
                         }
                     }
                 });
@@ -198,7 +241,7 @@ public class ChatDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String message = binding.message.getText().toString();
                 if(!message.equals("")){
-                    uploadMessages(message, senderId, senderRoom, receiverRoom);
+                    uploadMessages(message, senderId, senderRoom, receiverRoom, "text");
                 }
 
             }
@@ -207,28 +250,69 @@ public class ChatDetailActivity extends AppCompatActivity {
     }
 
     //Uploading Messages
-    public void uploadMessages(String message, String senderId, String senderRoom, String receiverRoom){
+    public void uploadMessages(String message, String senderId, String senderRoom, String receiverRoom, String checker){
+        String str = message;
+        str.substring(0, 5);
+        if(str.equals("https")){
+            //////////Picasso.get().load(str).into();
+        }
+
         final MessageModel model = new MessageModel(senderId, message);
+        model.setType(checker);
         model.setTimestamp(new Date().getTime());
         binding.message.setText("");
 
-        database.getReference().child("chats")
-                .child(senderRoom)
-                .push()
-                .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                database.getReference().child("chats")
-                        .child(receiverRoom)
-                        .push()
-                        .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
+        if(checker == "text"){
+            database.getReference().child("chats")
+                    .child(senderRoom)
+                    .push()
+                    .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    database.getReference().child("chats")
+                            .child(receiverRoom)
+                            .push()
+                            .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
 
-                    }
-                });
-            }
-        });
+                        }
+                    });
+                }
+            });
+        }
+        else{
+
+            loadingBar.setTitle("Sending File");
+            loadingBar.setMessage("Please Wait");
+            loadingBar.setCanceledOnTouchOutside(false);
+            loadingBar.show();
+
+            database.getReference().child("chats")
+                    .child(senderRoom)
+                    .push()
+                    .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    database.getReference().child("chats")
+                            .child(receiverRoom)
+                            .push()
+                            .setValue(model).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            loadingBar.dismiss();
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    loadingBar.dismiss();
+                    Toast.makeText(ChatDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
     }
 
 
