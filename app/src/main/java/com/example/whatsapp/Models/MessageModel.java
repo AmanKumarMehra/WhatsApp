@@ -5,6 +5,7 @@ public class MessageModel {
     String uId, message, type;
     Long timestamp;
 
+    //chats
     public MessageModel(String uId, String message, String type, Long timestamp) {
         this.uId = uId;
         this.message = message;

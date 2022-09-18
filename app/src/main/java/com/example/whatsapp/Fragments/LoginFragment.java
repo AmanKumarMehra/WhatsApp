@@ -14,12 +14,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.example.whatsapp.MainActivity;
 import com.example.whatsapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 
 public class LoginFragment extends Fragment implements OnClickListener {
@@ -36,6 +41,8 @@ public class LoginFragment extends Fragment implements OnClickListener {
         email = v.findViewById(R.id.email);
         pass = v.findViewById(R.id.pass);
 
+
+
         login = v.findViewById(R.id.login);
         mAuth = FirebaseAuth.getInstance();
 
@@ -49,15 +56,15 @@ public class LoginFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
 
         String e_mail = email.getText().toString();
-        String password = pass.getText().toString();
+        String pass1 = pass.getText().toString();
+
+        String password = HashingMethod(pass1);
+
 
         mAuth.signInWithEmailAndPassword(e_mail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    /*email.setText("");
-                    pass.setText("");
-                    Toast.makeText(getActivity(), "Successfully LogedIn", Toast.LENGTH_SHORT).show();*/
 
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 }
@@ -66,5 +73,30 @@ public class LoginFragment extends Fragment implements OnClickListener {
                 }
             }
         });
+    }
+
+    public static String HashingMethod(String data) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+
+            messageDigest.update(data.getBytes());
+
+            byte[] resultByteArray = messageDigest.digest();
+            System.out.println();
+            StringBuilder sb = new StringBuilder();
+
+            for(byte b : resultByteArray) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        }
+
+        catch(NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+
     }
 }

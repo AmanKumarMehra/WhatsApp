@@ -240,6 +240,8 @@ public class ChatDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String message = binding.message.getText().toString();
+
+
                 if(!message.equals("")){
                     uploadMessages(message, senderId, senderRoom, receiverRoom, "text");
                 }

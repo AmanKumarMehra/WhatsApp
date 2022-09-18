@@ -53,6 +53,8 @@ public class Chat_Fragment extends Fragment {
                 list.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Users users = dataSnapshot.getValue(Users.class);
+
+                    // Show all users except the one who has Logged In !!!
                     if(mAuth.getCurrentUser().getEmail() != users.getMail()){
                         users.setUserId(dataSnapshot.getKey());
                         if(!users.getUserId().equals(FirebaseAuth.getInstance().getUid())) {

@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.Executor;
 
 public class SignupFragment extends Fragment {
@@ -48,14 +50,39 @@ public class SignupFragment extends Fragment {
                 i.putExtra("mobile", "+91" + phone.getText().toString());
                 i.putExtra("user", username.getText().toString());
                 i.putExtra("email", email.getText().toString());
-                i.putExtra("password", pass.getText().toString());
+                //Encrypting password
+                i.putExtra("password", HashingMethod(pass.getText().toString()));
 
                 getActivity().startActivity(i);
-
 
             }
         });
 
         return v;
+    }
+
+    public static String HashingMethod(String data) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+
+            messageDigest.update(data.getBytes());
+
+            byte[] resultByteArray = messageDigest.digest();
+
+            StringBuilder sb = new StringBuilder();
+
+            for(byte b : resultByteArray) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        }
+
+        catch(NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+
     }
 }
